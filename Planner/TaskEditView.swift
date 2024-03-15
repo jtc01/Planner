@@ -29,10 +29,11 @@ struct TaskEditView: View {
                     set: { task.time = Int($0) }
                     ) , in: 5...30, step: 1)
             }
+            /*
             HStack{
                 DatePicker("Due Date", selection: $task.date, displayedComponents: .date)
             }
-             
+             */
         }
     }
 }
