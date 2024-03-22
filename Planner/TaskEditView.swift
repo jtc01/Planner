@@ -9,10 +9,17 @@ import SwiftUI
 
 struct TaskEditView: View {
     @Binding var tasks: [Task]
-    @State var task: Task
-    
+    @Binding var task: Task
+    @Binding var isPresentingTaskEditView: Bool
+    @State var isEditingNewTask: Bool
+    var taskID: Int
     var body: some View {
         VStack{
+            if isEditingNewTask{
+                LogoView(pageTitle: "New Task")
+            } else {
+                LogoView(pageTitle: "Edit Task")
+            }
             HStack {
                 Image(systemName: "tortoise")
                 TextField("Task Name", text: $task.name)
@@ -24,21 +31,35 @@ struct TaskEditView: View {
             
             HStack{
                 Image(systemName: "timer")
+                Text("\(task.time) minutes")
                 Slider(value: Binding<Double>(
                     get: {Double(task.time) },
                     set: { task.time = Int($0) }
-                    ) , in: 5...30, step: 1)
+                ) , in: 5...120, step: 5)
             }
-            /*
             HStack{
                 DatePicker("Due Date", selection: $task.date, displayedComponents: .date)
             }
-             */
+            Button(action: {
+                if(isEditingNewTask){
+                    tasks.append(task)
+                }
+                isPresentingTaskEditView=false
+            }, label: {
+                if isEditingNewTask{
+                    Text("Add Task")
+                }
+                else{
+                    Text("Confirm Changes")
+                }
+            })
         }
+        .padding()
     }
 }
 
 #Preview {
-    TaskEditView(tasks: .constant(Task.sampleData), task: Task.sampleData[0])
+    TaskEditView(tasks: .constant(Task.sampleData), task: .constant(Task.sampleData[3]), isPresentingTaskEditView: .constant(true), isEditingNewTask: true, taskID: 0)
 }
 
+//Xabi please come to Liverpool I don't think I can take another rejection

@@ -13,6 +13,7 @@ struct TaskView: View {
     @Binding var task: Task
     @State var isPresentingTaskActiveView: Bool = false
     @Binding var isPresentingTaskView: Bool
+    @State var isPresentingTaskEditView: Bool
     var body: some View {
         NavigationView {
             VStack{
@@ -35,6 +36,15 @@ struct TaskView: View {
                         Image(systemName: "paperplane.fill")
                         Text("Due \(formattedDate(task.date))")
                     }
+                    Button(action: {
+                        isPresentingTaskEditView = true
+                    }, label: {
+                        Text("Edit task")
+                    })
+                    .font(.headline)
+                    .sheet(isPresented: $isPresentingTaskEditView, content: {
+                        TaskEditView(tasks: $tasks, task: $task, isPresentingTaskEditView: $isPresentingTaskEditView, isEditingNewTask: false, taskID: taskID)
+                    })
                     Button(action: {
                         isPresentingTaskActiveView = true
                     }) {

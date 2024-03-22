@@ -13,6 +13,7 @@ struct ContentView: View {
     @State var selectedID: Int
     @State var isPresentingTaskView: Bool = false
     @State var isPresentingTaskEditView: Bool = false
+    @State var newTask: Task = Task.sampleData[3]
     var body: some View {
         NavigationView {
             VStack{
@@ -26,18 +27,22 @@ struct ContentView: View {
                         TaskCardView(task: self.tasks[index])
                     }
                 }
-                NewTaskButtonView()
-                    .cornerRadius(3.0)
-                    .frame(width: .infinity,height: 75)
+                Button(action: {
+                    self.isPresentingTaskEditView = true
+                }) {
+                    NewTaskButtonView()
+                        .cornerRadius(3.0)
+                        .frame(height: 75)
+                }
             }
             .sheet(isPresented: $isPresentingTaskView) {
-                TaskView(tasks: $tasks, taskID: $selectedID, task: $tasks[selectedID], isPresentingTaskActiveView: false, isPresentingTaskView: $isPresentingTaskView)
+                TaskView(tasks: $tasks, taskID: $selectedID, task: $tasks[selectedID], isPresentingTaskActiveView: false, isPresentingTaskView: $isPresentingTaskView, isPresentingTaskEditView: false)
             }
-            /*
+            
             .sheet(isPresented: $isPresentingTaskEditView){
-                TaskEditView(tasks: $tasks, task: Task.sampleData[3])
+                TaskEditView(tasks: $tasks, task: $newTask, isPresentingTaskEditView: $isPresentingTaskEditView, isEditingNewTask: true, taskID: 0)
             }
-            */
+            
         }
         .padding()
     }
@@ -51,3 +56,4 @@ struct ContentView_Previews: PreviewProvider {
 }
 //ask chatGPT to solve the errors its probbly rlly stupid hopefully Berterame signs when you're reading this but you're probably really sad that he didn't
 //he didn't sign :(
+//Turtle Tasks!
