@@ -13,6 +13,9 @@ struct TaskEditView: View {
     @Binding var isPresentingTaskEditView: Bool
     @State var isEditingNewTask: Bool
     var taskID: Int
+    
+    
+    
     var body: some View {
         VStack{
             if isEditingNewTask{
@@ -45,6 +48,7 @@ struct TaskEditView: View {
                     tasks.append(task)
                 }
                 isPresentingTaskEditView=false
+                UserDefaults.standard.set(try? JSONEncoder().encode(tasks), forKey: "tasks")
             }, label: {
                 if isEditingNewTask{
                     Text("Add Task")

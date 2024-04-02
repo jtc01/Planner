@@ -14,6 +14,20 @@ struct ContentView: View {
     @State var isPresentingTaskView: Bool = false
     @State var isPresentingTaskEditView: Bool = false
     @State var newTask: Task = Task.sampleData[3]
+    
+    init() {
+        // Initialize tasks property
+        if let data = UserDefaults.standard.data(forKey: "tasks"),
+           let savedTasks = try? JSONDecoder().decode([Task].self, from: data) {
+            _tasks = State(initialValue: savedTasks)
+        } else {
+            _tasks = State(initialValue: Task.sampleData)
+        }
+        
+        // Initialize other properties
+        _selectedID = State(initialValue: 0)
+    }
+    
     var body: some View {
         NavigationView {
             VStack{
@@ -51,9 +65,13 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var tasks: [Task] = Task.sampleData
     static var previews: some View{
-        ContentView(tasks: tasks, selectedID: 0)
+        ContentView()
     }
 }
+
+//I want to store the tasks variable locally, how should I do that? should I use NS user defaults?
+
 //ask chatGPT to solve the errors its probbly rlly stupid hopefully Berterame signs when you're reading this but you're probably really sad that he didn't
 //he didn't sign :(
 //Turtle Tasks!
+

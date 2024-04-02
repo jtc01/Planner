@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Task: Identifiable, Equatable {
+struct Task: Identifiable, Equatable, Encodable, Decodable {
     let id: UUID
     var name: String
     var date: Date
