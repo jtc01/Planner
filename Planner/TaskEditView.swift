@@ -46,6 +46,7 @@ struct TaskEditView: View {
             Button(action: {
                 if(isEditingNewTask){
                     tasks.append(task)
+                    scheduleNotification(for: task)
                 }
                 isPresentingTaskEditView=false
                 UserDefaults.standard.set(try? JSONEncoder().encode(tasks), forKey: "tasks")
@@ -60,6 +61,27 @@ struct TaskEditView: View {
         }
         .padding()
     }
+    func scheduleNotification(for task: Task) {
+            let notificationContent = UNMutableNotificationContent()
+            notificationContent.title = "Task Reminder"
+            notificationContent.body = "Don't forget to \(task.name)"
+            notificationContent.sound = UNNotificationSound.default
+
+            let calendar = Calendar.current
+            let dateComponents = calendar.dateComponents([.year, .month, .day], from: task.date)
+            let triggerDate = calendar.date(bySettingHour: 18, minute: 0, second: 0, of: task.date)
+
+            let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
+            let request = UNNotificationRequest(identifier: UUID().uuidString, content: notificationContent, trigger: trigger)
+
+            UNUserNotificationCenter.current().add(request) { error in
+                if let error = error {
+                    print("Error scheduling notification: \(error.localizedDescription)")
+                } else {
+                    print("Notification scheduled successfully")
+                }
+            }
+        }
 }
 
 #Preview {
