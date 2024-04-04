@@ -11,6 +11,7 @@ import SwiftUI
 struct PlannerApp: App {
     // Initialize the notification center
     let notificationCenter = UNUserNotificationCenter.current()
+    let notificationDelegate = NotificationDelegate()
 
     var body: some Scene {
         WindowGroup {
@@ -37,7 +38,7 @@ struct PlannerApp: App {
 
     init() {
         // Set the delegate for notification handling
-        notificationCenter.delegate = NotificationDelegate()
+        notificationCenter.delegate = notificationDelegate
     }
 }
 
@@ -45,7 +46,7 @@ struct PlannerApp: App {
 class NotificationDelegate: NSObject, UNUserNotificationCenterDelegate {
     // Handle notifications when the app is in the foreground
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        completionHandler([.alert, .sound, .badge])
+        completionHandler([.banner, .sound, .badge])
     }
 
     // Handle notification actions
