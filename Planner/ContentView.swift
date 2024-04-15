@@ -51,7 +51,7 @@ struct ContentView: View {
                 }
             }
             .sheet(isPresented: $isPresentingTaskView) {
-                TaskView(tasks: $tasks, taskID: $selectedID, task: $tasks[selectedID], isPresentingTaskActiveView: $isPresentingTaskActiveView, isPresentingTaskView: $isPresentingTaskView, isPresentingTaskEditView: false)
+                TaskView(tasks: $tasks, taskID: $selectedID, task: $tasks[selectedID], isPresentingTaskActiveView: false, isPresentingTaskView: $isPresentingTaskView, isPresentingTaskEditView: false)
             }
             
             .sheet(isPresented: $isPresentingTaskEditView){

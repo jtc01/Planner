@@ -11,7 +11,7 @@ struct TaskView: View {
     @Binding var tasks: [Task]
     @Binding var taskID: Int
     @Binding var task: Task
-    @Binding var isPresentingTaskActiveView: Bool
+    @State var isPresentingTaskActiveView: Bool
     @Binding var isPresentingTaskView: Bool
     @State var isPresentingTaskEditView: Bool
     var body: some View {
@@ -46,12 +46,14 @@ struct TaskView: View {
                         TaskEditView(tasks: $tasks, task: $task, isPresentingTaskEditView: $isPresentingTaskEditView, isEditingNewTask: false, taskID: taskID)
                     })
                     Button(action: {
-                        isPresentingTaskActiveView = true
+                        isPresentingTaskActiveView.self = true
                     }) {
                         Label("Start", systemImage: "tortoise")
                     }
                     .font(.headline)
                     .foregroundColor(.blue)
+                    
+                    Text("\(isPresentingTaskActiveView)")
                 }
             }
         }
@@ -59,6 +61,7 @@ struct TaskView: View {
         .sheet(isPresented: $isPresentingTaskActiveView) {
             TaskActiveView(isPresentingTaskActiveView: $isPresentingTaskActiveView, tasks: $tasks, taskID: $taskID, task: task, isPresentingTaskView: $isPresentingTaskView, timeTotal: task.time, isActive: true, timeInterval: 0)
         }
+         
     }
     func formattedDate(_ date: Date) -> String {
         let formatter = DateFormatter()
