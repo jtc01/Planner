@@ -13,6 +13,7 @@ struct ContentView: View {
     @State var selectedID: Int
     @State var isPresentingTaskView: Bool = false
     @State var isPresentingTaskEditView: Bool = false
+    @State var isPresentingTaskActiveView: Bool = false
     @State var newTask: Task = Task.sampleData[3]
     
     init() {
@@ -50,7 +51,7 @@ struct ContentView: View {
                 }
             }
             .sheet(isPresented: $isPresentingTaskView) {
-                TaskView(tasks: $tasks, taskID: $selectedID, task: $tasks[selectedID], isPresentingTaskActiveView: false, isPresentingTaskView: $isPresentingTaskView, isPresentingTaskEditView: false)
+                TaskView(tasks: $tasks, taskID: $selectedID, task: $tasks[selectedID], isPresentingTaskActiveView: $isPresentingTaskActiveView, isPresentingTaskView: $isPresentingTaskView, isPresentingTaskEditView: false)
             }
             
             .sheet(isPresented: $isPresentingTaskEditView){
@@ -68,6 +69,10 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
+
+//This is ContentView.
+
+
 
 //I want to store the tasks variable locally, how should I do that? should I use NS user defaults?
 
