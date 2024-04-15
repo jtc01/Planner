@@ -53,7 +53,7 @@ struct TaskView: View {
                     .font(.headline)
                     .foregroundColor(.blue)
                     .sheet(isPresented: $isPresentingTaskActiveView) {
-                        TaskActiveView(isPresentingTaskActiveView: $isPresentingTaskActiveView, tasks: $tasks, taskID: $taskID, task: task, isPresentingTaskView: $isPresentingTaskView, timeTotal: task.time, timeInterval: 0)
+                        TaskActiveView(isPresentingTaskActiveView: $isPresentingTaskActiveView, tasks: $tasks, taskID: $taskID, task: task, isPresentingTaskView: $isPresentingTaskView, timeTotal: task.time, isActive: true, timeInterval: 0)
                     }
                 }
             }

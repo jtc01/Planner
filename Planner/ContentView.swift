@@ -74,4 +74,4 @@ struct ContentView_Previews: PreviewProvider {
 //ask chatGPT to solve the errors its probbly rlly stupid hopefully Berterame signs when you're reading this but you're probably really sad that he didn't
 //he didn't sign :(
 //Turtle Tasks!
-
+//we can't even get amorim why do i keep getting rejected???????????
